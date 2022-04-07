@@ -31,21 +31,15 @@ public class Application {
 		System.out.println("Tablero: ");
 		tablero.showBoard();
 		
-		while(ganaX == false && ganaO == false) {
+		while(tablero.comprobarGanador() == false) {
 			System.out.println("Ahora: " + JugX.getNombre());
 			System.out.println("Ingrese la fila: ");
 			int filaX = sc.nextInt();
 			System.out.println("Ingrese la columna: ");
 			int colX = sc.nextInt();
 			
-			tablero.comprobarGanador(nombreJugX, nombreJugO);
-			ganaX = tablero.getGanaX();
-			ganaO = tablero.getGanaO();
-			if(ganaX || ganaO) {
-				break;
-			}
-			
 			tablero.addX(filaX, colX);
+			tablero.comprobarGanador();
 			
 			System.out.println("Ahora " + JugO.getNombre());
 			System.out.println("Ingrese la fila: ");
@@ -54,17 +48,12 @@ public class Application {
 			int colO = sc.nextInt();
 			
 			tablero.addO(filaO, colO);
+			tablero.comprobarGanador();
 			
-			tablero.comprobarGanador(nombreJugX, nombreJugO);
-			ganaX = tablero.getGanaX();
-			ganaO = tablero.getGanaO();
-			
-			if(ganaX || ganaO) {
-				break;
-			}
-			
-			System.out.println("Ahora " + JugX.getNombre());
 		}
+		
+		ganaX = tablero.getGanaX();
+		ganaO = tablero.getGanaO();
 		
 		if(ganaX == true) {
 			System.out.println("El ganador es: " + JugX.getNombre());
