@@ -10,8 +10,9 @@ public class Application {
 		Jugador JugX = new Jugador(); //Jugador 1
 		Jugador JugO = new Jugador(); //Jugador 2
 		
-		boolean ganaX = tablero.getGanaX();
-		boolean ganaO = tablero.getGanaO();
+		//boolean ganaX = tablero.getGanaX();
+		//boolean ganaO = tablero.getGanaO(); Descontinuado
+		boolean hayGanador = tablero.getHayGanador();
 		
 		System.out.println("Ingrese el nombre del jugador 1");
 		String nombreJugX = sc.nextLine();
@@ -31,7 +32,7 @@ public class Application {
 		System.out.println("Tablero: ");
 		tablero.showBoard();
 		
-		while(tablero.comprobarGanador() == false) {
+		while(hayGanador == false) {
 			System.out.println("Ahora: " + JugX.getNombre());
 			System.out.println("Ingrese la fila: ");
 			int filaX = sc.nextInt();
@@ -39,7 +40,11 @@ public class Application {
 			int colX = sc.nextInt();
 			
 			tablero.addX(filaX, colX);
-			tablero.comprobarGanador();
+			if(tablero.comprobarGanador("[X]")) {
+				System.out.println("El ganador es: " + JugX.getNombre());
+				break;
+			}
+			
 			
 			System.out.println("Ahora " + JugO.getNombre());
 			System.out.println("Ingrese la fila: ");
@@ -48,21 +53,25 @@ public class Application {
 			int colO = sc.nextInt();
 			
 			tablero.addO(filaO, colO);
-			tablero.comprobarGanador();
+			if(tablero.comprobarGanador("[O]")) {
+				System.out.println("El ganador es: " + JugO.getNombre());
+				break;
+			}
 			
 		}
-		
+	
+		/*
 		ganaX = tablero.getGanaX();
 		ganaO = tablero.getGanaO();
 		
 		if(ganaX == true) {
 			System.out.println("El ganador es: " + JugX.getNombre());
-			
+																			//Descontinuado, se usó con los for
 		}
 		if(ganaO == true) {
 			System.out.println("El ganador es: " + JugO.getNombre());
 		}
-		
+		*/
 		
 		
 	}

@@ -2,11 +2,12 @@ package co.edu.unbosque.tictactoe;
 
 public class Tablero {
 	String[][] tablero = {{"[ ]", "[ ]", "[ ]"},
-	 					  {"[ ]", "[ ]", "[ ]"},
+	 					  {"[ ]", "[ ]", "[ ]"}, //Tablero como matriz cuadrada 3x3
 	 					  {"[ ]", "[ ]", "[ ]"}};
 	
-	boolean ganaX = false;
-	boolean ganaO = false;
+	//private boolean ganaX = false; //Se usó con el for
+	//private boolean ganaO = false; //Se usó con el for 
+	private boolean hayGanador = false;
 			
 	public void showBoard() {
 		for(int fila = 0; fila < tablero.length; fila++) {
@@ -22,7 +23,7 @@ public class Tablero {
 			if(i == fila) {
 				for(int j = 0; j < tablero[i].length; j++) {
 					if(j == col) {
-						if(tablero[i][j].equals("[O]") || tablero[i][j].equals("[X]")) {
+						if(tablero[i][j].equals("[O]") || tablero[i][j].equals("[X]")) { //Evitar que se sobrepongan fichas
 							System.out.println("Error, esa casilla está ocupada");
 							break;
 						}
@@ -62,14 +63,55 @@ public class Tablero {
 	}
 	
 	
-	public boolean comprobarGanador() {
-		//Validar columnas
+	public boolean comprobarGanador(String firma) {
+		//Validar filas
+		if(tablero[0][0].equals(firma) && tablero[0][1].equals(firma) && tablero[0][2].equals(firma)) {
+			//System.out.println("El ganador es el de las fichas: " + firma);
+			hayGanador = true;
+		}
+		else if(tablero[1][0].equals(firma) && tablero[1][1].equals(firma) && tablero[1][2].equals(firma)) {
+			//System.out.println("El ganador es el de las fichas: " + firma);
+			hayGanador = true;
+		}
+		else if(tablero[2][0].equals(firma) && tablero[2][1].equals(firma) && tablero[2][2].equals(firma)) {
+			//System.out.println("El ganador es el de las fichas: " + firma);
+			hayGanador = true;
+		}
+		
+		//Validar columas
+		else if(tablero[0][0].equals(firma) && tablero[1][0].equals(firma) && tablero[2][0].equals(firma)) {
+			//System.out.println("El ganador es el de las fichas " + firma);
+			hayGanador = true;
+		}
+		else if(tablero[0][1].equals(firma) && tablero[1][1].equals(firma) && tablero[2][1].equals(firma)) {
+			//System.out.println("El ganador es el de las fichas " + firma);
+			hayGanador = true;
+		}
+		else if(tablero[0][2].equals(firma) && tablero[1][2].equals(firma) && tablero[2][2].equals(firma)) {
+			//System.out.println("El ganador es el de las fichas " + firma);
+			hayGanador = true;
+		}
+		//Validar diagonal principal
+		else if(tablero[0][0].equals(firma) && tablero[1][1].equals(firma) && tablero[2][2].equals(firma)) {
+			//System.out.println("El ganador es el de las fichas " + firma);
+			hayGanador = true;
+		}
+		//Validar diagonal secundaria
+		else if(tablero[0][2].equals(firma) && tablero[1][1].equals(firma) && tablero[2][0].equals(firma)) {
+			//System.out.println("El ganador es el de las fichas " + firma);
+			hayGanador = true;
+		}
+		else {
+			hayGanador = false;
+		}
+		return hayGanador;
+		/* Se eliminó el for porque era muy complicado, más de lo necesario
 		for(int fila = 0; fila < tablero.length; fila++) {
 			for(int col = 0; col < tablero.length; col++) {
-				if(tablero[fila][col].equals("[X]") && tablero[fila][col].equals("[X]") && tablero[fila][col].equals("[X]")) {
+				if(tablero[0][col].equals("[X]") && tablero[1][col].equals("[X]") && tablero[2][col].equals("[X]")) {
 					ganaX = true;
 				}
-				else if(tablero[fila][col].equals("[O]") && tablero[fila][col].equals("[O]") && tablero[fila][col].equals("[O]")) {
+				else if(tablero[0][col].equals("[O]") && tablero[12][col].equals("[O]") && tablero[0][col].equals("[O]")) {
 					ganaO = true;
 				}
 				else {
@@ -79,6 +121,7 @@ public class Tablero {
 			}
 			
 		}
+		
 		//Validar filas
 		
 		for(int col = 0; col <= tablero[0].length; col++) {
@@ -119,12 +162,16 @@ public class Tablero {
 		else {
 			return false;
 		}
+		*/
 	}
 	
-	public boolean getGanaX() {
-		return this.ganaX;
-	}
-	public boolean getGanaO() {
-		return this.ganaO;
+	//public boolean getGanaX() {
+		//return this.ganaX;
+	//}
+	//public boolean getGanaO() { Se usó con los for
+		//return this.ganaO;
+	//}
+	public boolean getHayGanador() {
+		return this.hayGanador;
 	}
 }
